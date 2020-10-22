@@ -1,11 +1,11 @@
 # FDR High School - AP CS A
 
-## Last Name: 
-## First Name: 
-## GitHub Username:
+## Last Name: Koltovskiy
+## First Name: Max
+## GitHub Username: Mdroituno
 
 
-### General Workflow: 
+### General Workflow:
 * Fill out the top of this form, commit and push it back to GitHub.
 * For each assignment,
   * `$ mkdir <assignment-number>-<topic>` (to be specified for each assignment)
