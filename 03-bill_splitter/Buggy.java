@@ -21,7 +21,7 @@ public class Buggy{
 		total *= (tax+1);
 		total += tipCash;
 		double perPerson = total/numPeople;
-		System.out.println("Each person must pay $" + perPerson);
+		System.out.printf("Each person must pay $%.2f", perPerson);
 
 	}//end main method
 }//end class
