@@ -5,6 +5,8 @@ public class Temperature{
     int conditional=0;
     System.out.print("Welcome! ");
 
+    /* loops until the user picks option 1 or 2,
+    any others will cause the question to loop back */
     while (!(conditional==1 || conditional==2)){
       System.out.println("Enter the number relative to your needed conversion:");
       System.out.println("1. Convert Celsius to Fahrenheit");
@@ -26,7 +28,7 @@ public class Temperature{
 
         System.out.printf("%.1f F = %.1f C", fahrenheit ,celsius(fahrenheit));
       }//end else if
-      
+
       else{
         System.out.println("Invalid input");
       }//end else
