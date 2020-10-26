@@ -1,13 +1,29 @@
+import java.util.Scanner;
 import java.lang.Math;
 public class Distance{
   public static void main(String[] args) {
-    int x1 = 8;
-    int x2 = 3;
-    int y1 = 10;
-    int y2 = 9;
-    System.out.printf("The cartesian distance is %.5f\n",cartesianDistance(x1,y1,x2,y2));
-    System.out.println("The taxicab distance is "(x1,y1,x2,y2));
 
+    int x1 = coordInput("x",1);
+    int y1 = coordInput("y",1);
+    int x2 = coordInput("x",2);
+    int y2 = coordInput("y",2);
+
+    System.out.printf("The cartesian distance is %.5f\n",cartesianDistance(x1,y1,x2,y2));
+    System.out.println("The taxicab distance is " + taxicabDistance(x1,y1,x2,y2));
+
+  }
+
+ /*
+  * N: coordInput
+  * P: get a certain coordinate from user
+  * I: axis and if its first or second point
+  * R: The user input for value of the inputed coordinate
+  */
+  public static int coordInput(String axis, int point){
+    Scanner in = new Scanner(System.in);
+    System.out.printf("What is the value of %s%d? ", axis, point);
+    int user = in.nextInt();
+    return user;
   }
 
  /*
