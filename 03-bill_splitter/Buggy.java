@@ -1,4 +1,3 @@
-// Members: Zhi Feng, Max Koltovskiy
 import java.util.*;
 
 public class Buggy{
@@ -12,14 +11,15 @@ public class Buggy{
 		System.out.print("How much percent tax? ");
 		double tax = input.nextDouble()/100;
 
-		System.out.print("How much tip to add? ");
-		double tip = input.nextDouble();
+		System.out.print("How much percent tip to add? ");
+		double tip = input.nextDouble()/100;
 
 		System.out.print("How many people? ");
 		int numPeople = input.nextInt();
 
+		double tipCash = total * tip;
 		total *= (tax+1);
-		total += tip;
+		total += tipCash;
 		double perPerson = total/numPeople;
 		System.out.println("Each person must pay $" + perPerson);
 
