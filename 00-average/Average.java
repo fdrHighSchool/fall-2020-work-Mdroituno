@@ -2,12 +2,13 @@ import java.util.Scanner;
 public class  Average{
   public static void main(String[] args){
     System.out.print("Number of grades: ");
-    float num = Input();
+    int num = Input();
 
+    // prints out the whole decimal
     System.out.println("Average: " + Calculation(num)/num);
 
   }// close method
-  public static double Calculation(float num){
+  public static double Calculation(int num){
     float sum = 0;
 
     for(int i=0;i<num;i++){
@@ -19,7 +20,6 @@ public class  Average{
   public static int Input(){
     Scanner in = new Scanner(System.in);
 
-    int Input = in.nextInt();
-    return Input;
+    return in.nextInt();
   }//close method
 }//close class
