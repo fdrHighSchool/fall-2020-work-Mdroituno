@@ -4,23 +4,77 @@ public class Calculator{
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
 
-    String user = " ";
+    String user = "";
 
-    while(user.isEmpty() == false){
-      System.out.print("Write your problem or leave it empty to quit: ");
+    while(user != "quit"){
+      System.out.print("Write your problem or type quit to quit: ");
       user = in.nextLine();
-      if(user != ""){
+      //System.out.println(user);
+      if(user != "quit"){
         System.out.println(produceAnswer(user));
       }// end if user not empty
 
     }//end while loop
   }//end main method
-  public static String produceAnswer(String user){
+  public static int produceAnswer(String user){
+    int[] splitOperands = inputSplit(user);
+    for (int i =0; i<7; i++){
+      System.out.println(splitOperands[i]);
+    }
+    String operator = user.substring(splitOperands[3], splitOperands[3]+1);
+    
+
+    return 0;
+  }//end produceAnswer method
+  public static int[] inputSplit(String user){
     int space = user.indexOf(" ");
     int operatorIndex = space + 1;
 
-    String operator = user.substring(operatorIndex, operatorIndex+1);
+    String first = user.substring(0,space);
     String second = user.substring(operatorIndex+2);
-    return second;
-  }//end produceAnswer
+    //System.out.print(first);
+    //System.out.print(second);
+
+    int whole1 = 0;
+    int whole2 = 0;
+    if (first.indexOf("_") != -1){
+      whole1 = wholeNum(first);
+    }
+    if (second.indexOf("_") != -1){
+      whole2 = wholeNum(second);
+    }
+
+    int numer1 = numerator(first);
+    int numer2 = numerator(second);
+
+    int denom1 = denominator(first);
+    int denom2 = denominator(second);
+
+    int[] splitOperands = new int[7];
+    splitOperands[0] = whole1;
+    splitOperands[1] = numer1;
+    splitOperands[2] = denom1;
+    splitOperands[3] = operatorIndex;
+    splitOperands[4] = whole2;
+    splitOperands[5] = numer2;
+    splitOperands[6] = denom2;
+
+    return splitOperands;
+  }
+  public static int wholeNum(String operand){
+    String num = operand.substring(0,1);
+    return Integer.parseInt(num);
+  }//end wholeNum method
+
+  public static int numerator(String operand){
+    int line = operand.indexOf("/");
+    String num = operand.substring(line-1, line);
+    return Integer.parseInt(num);
+  }//end numerator method
+
+  public static int denominator(String operand){
+    int line = operand.indexOf("/");
+    String num = operand.substring(line+1);
+    return Integer.parseInt(num);
+  }
 }//end class
