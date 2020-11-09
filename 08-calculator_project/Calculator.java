@@ -28,12 +28,14 @@ public class Calculator{
       System.out.println(splitOperands[i]);
     }
     */
-    String operator = user.substring(splitOperands[3], splitOperands[3]+1);
 
+    /*
     System.out.print("whole: " + splitOperands[4]);
     System.out.print(" numerator: " + splitOperands[5]);
     System.out.println(" denominator: " + splitOperands[6]);
-
+    */
+    String operator = user.substring(splitOperands[3], splitOperands[3]+1);
+    System.out.println(calculation(splitOperands,operator));
     return 0;
   }//end produceAnswer method
   /*
@@ -117,5 +119,43 @@ public class Calculator{
       return Integer.parseInt(num);
     }
     else{return 1;}
+  }
+  /*
+   *N: calculation
+   *P: calculate equation
+   *I: array with all digits and operator
+   *R: final calculation
+   */
+  public static String calculation(int[] splitOperands, String operator){
+
+    int num1 = splitOperands[0] * splitOperands[2] + splitOperands[1];
+    int num2 = splitOperands[4] * splitOperands[6] + splitOperands[5];
+    //System.out.println(num1 + " " +  num2);
+
+    if(operator.equals("+")){
+      int numer = (num1 * splitOperands[6]) + (num2 * splitOperands[2]);
+      int denom = splitOperands[2] * splitOperands[6];
+      String result = numer + "/" + denom;
+      return result;
+    }
+    else if(operator.equals("-")){
+      int numer = (num1 * splitOperands[6]) - (num2 * splitOperands[2]);
+      int denom = splitOperands[2] * splitOperands[6];
+      String result = numer + "/" + denom;
+      return result;
+    }
+    else if(operator.equals("*")){
+      int numer = num1 * num2;
+      int denom = splitOperands[2] * splitOperands[6];
+      String result = numer + "/" + denom;
+      return result;
+    }
+    else if(operator.equals("/")){
+      int numer = num1 * splitOperands[6];
+      int denom = splitOperands[2] * num2 ;
+      String result = numer + "/" + denom;
+      return result;
+    }
+    return "error";
   }
 }//end class
