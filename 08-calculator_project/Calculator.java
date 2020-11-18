@@ -93,14 +93,30 @@ public class Calculator{
     int denom = Integer.parseInt(result.substring(division+1));
     int whole = 0;
 
-    int GCF = findGCF(numer,denom);
-    numer /= GCF;
-    denom /= GCF;
-    if(numer > denom){
+    if(numer != denom){
+      int GCF = findGCF(numer,denom);
+      numer /= GCF;
+      denom /= GCF;
+    }
+    if(numer >= denom){
      whole = numer / denom;
     }
     numer -= whole*denom;
+
     String simplified = whole + "_" + numer + "/" + denom;
+    if(whole == 0){
+      simplified = numer + "/" + denom;
+    }
+
+    if(numer == 0 && whole > 0){
+      int wholeIndex = simplified.indexOf("_");
+      simplified = simplified.substring(0,wholeIndex);
+    }
+
+    if(denom == 1 && simplified.contains("/") == true){
+      int slashIndex = simplified.indexOf("/");
+      simplified = simplified.substring(0,slashIndex);
+    }
     return simplified;
     //return numer;
     //return GCF;
@@ -204,9 +220,11 @@ public class Calculator{
     int max = Math.max(first,second);
     //System.out.println(min +" "+ max);
     //return 0;
-    for(int i = min; i>0; i--){
-      if(first % i == 0 && second % i == 0){
-        return i;
+    if(first != second){
+      for(int i = min; i>0; i--){
+        if(first % i == 0 && second % i == 0){
+          return i;
+        }
       }
     }
     return 1;
