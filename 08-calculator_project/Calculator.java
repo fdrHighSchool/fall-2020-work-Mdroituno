@@ -11,7 +11,7 @@ public class Calculator{
       user = in.nextLine();
       //System.out.println(user);
       if(!(user.equals("quit"))){
-        produceAnswer(user);
+        System.out.println(produceAnswer(user));
       }// end if user not empty
     }//end while loop
   }//end main method
@@ -21,7 +21,8 @@ public class Calculator{
    *I: user input
    *R: solution to equation
    */
-  public static int produceAnswer(String user){
+  //public static int produceAnswer(String user){
+  public static String produceAnswer(String user){
     int[] splitOperands = inputSplit(user);
     /*
     for (int i =0; i<7; i++){
@@ -35,91 +36,11 @@ public class Calculator{
     System.out.println(" denominator: " + splitOperands[6]);
     */
     String operator = user.substring(splitOperands[3], splitOperands[3]+1);
-    System.out.println(calculation(splitOperands,operator));
-    return 0;
+    //System.out.println(calculation(splitOperands,operator));
+    return simplify(calculation(splitOperands,operator));
+
   }//end produceAnswer method
-  /*
-   *N: inputSplit
-   *P: split the user input into its parts
-   *I: user input
-   *R: array with all parts ordered
-   */
-  public static int[] inputSplit(String user){
-    int space = user.indexOf(" ");
-    int operatorIndex = space + 1;
 
-    String first = user.substring(0,space);
-    String second = user.substring(operatorIndex+2);
-    //System.out.print(first);
-    //System.out.print(second);
-
-    int whole1 = wholeNum(first);
-    int whole2 = wholeNum(second);
-
-    int numer1 = numerator(first);
-    int numer2 = numerator(second);
-
-    int denom1 = denominator(first);
-    int denom2 = denominator(second);
-
-    int[] splitOperands = new int[7];
-    //refer below for where each value is
-    splitOperands[0] = whole1;
-    splitOperands[1] = numer1;
-    splitOperands[2] = denom1;
-    splitOperands[3] = operatorIndex;
-    splitOperands[4] = whole2;
-    splitOperands[5] = numer2;
-    splitOperands[6] = denom2;
-
-    return splitOperands;
-  }
-  /*
-   *N: wholeNum
-   *P: get whole number, if it exists
-   *I: one operand
-   *R: whole number or 0
-   */
-  public static int wholeNum(String operand){
-    if(operand.indexOf("_") != -1){
-      String num = operand.substring(0,1);
-      return Integer.parseInt(num);
-    }
-    else if(operand.indexOf("/") != -1){
-      return 0;
-    }
-    else{
-      return Integer.parseInt(operand);
-    }
-  }//end wholeNum method
-  /*
-   *N: numerator
-   *P: get numerator, if exists
-   *I: one operand
-   *R: numerator or 0
-   */
-  public static int numerator(String operand){
-    if(operand.indexOf("/") != -1){
-      int line = operand.indexOf("/");
-      String num = operand.substring(line-1, line);
-      return Integer.parseInt(num);
-    }
-    else{return 0;}
-  }//end numerator method
-  /*
-   *N: denominator
-   *P: get denominator, if exists
-   *I: one operand
-   *R: denominator or 1
-   */
-  public static int denominator(String operand){
-    if(operand.indexOf("/") != -1){
-      int line = operand.indexOf("/");
-      String num = operand.substring(line+1);
-      return Integer.parseInt(num);
-    }
-    else{return 1;}
-  }
   /*
    *N: calculation
    *P: calculate equation
@@ -157,5 +78,137 @@ public class Calculator{
       return result;
     }
     return "error";
+  }//end calculation method
+
+  /*
+   *N: simplify
+   *P: to simplify result from calculation method
+   *I: result of calculation()
+   *R: simplified version of result
+   */
+  //public static int simplify(String result){
+  public static String simplify(String result){
+    int division = result.indexOf("/");
+    int numer = Integer.parseInt(result.substring(0,division));
+    int denom = Integer.parseInt(result.substring(division+1));
+    int whole = 0;
+
+    int GCF = findGCF(numer,denom);
+    numer /= GCF;
+    denom /= GCF;
+    if(numer > denom){
+     whole = numer / denom;
+    }
+    numer -= whole*denom;
+    String simplified = whole + "_" + numer + "/" + denom;
+    return simplified;
+    //return numer;
+    //return GCF;
+    //return denom;
+  }//end simplify method
+
+  /*
+   *N: inputSplit
+   *P: split the user input into its parts
+   *I: user input
+   *R: array with all parts ordered
+   */
+  public static int[] inputSplit(String user){
+    int space = user.indexOf(" ");
+    int operatorIndex = space + 1;
+
+    String first = user.substring(0,space);
+    String second = user.substring(operatorIndex+2);
+    //System.out.print(first);
+    //System.out.print(second);
+
+    int whole1 = wholeNum(first);
+    int whole2 = wholeNum(second);
+
+    int numer1 = numerator(first);
+    int numer2 = numerator(second);
+
+    int denom1 = denominator(first);
+    int denom2 = denominator(second);
+
+    int[] splitOperands = new int[7];
+    //refer below for where each value is
+    splitOperands[0] = whole1;
+    splitOperands[1] = numer1;
+    splitOperands[2] = denom1;
+    splitOperands[3] = operatorIndex;
+    splitOperands[4] = whole2;
+    splitOperands[5] = numer2;
+    splitOperands[6] = denom2;
+
+    return splitOperands;
   }
+
+  /*
+   *N: wholeNum
+   *P: get whole number, if it exists
+   *I: one operand
+   *R: whole number or 0
+   */
+  public static int wholeNum(String operand){
+    if(operand.indexOf("_") != -1){
+      String num = operand.substring(0,1);
+      return Integer.parseInt(num);
+    }
+    else if(operand.indexOf("/") != -1){
+      return 0;
+    }
+    else{
+      return Integer.parseInt(operand);
+    }
+  }//end wholeNum method
+
+  /*
+   *N: numerator
+   *P: get numerator, if exists
+   *I: one operand
+   *R: numerator or 0
+   */
+  public static int numerator(String operand){
+    if(operand.indexOf("/") != -1){
+      int line = operand.indexOf("/");
+      String num = operand.substring(line-1, line);
+      return Integer.parseInt(num);
+    }
+    else{return 0;}
+  }//end numerator method
+
+  /*
+   *N: denominator
+   *P: get denominator, if exists
+   *I: one operand
+   *R: denominator or 1
+   */
+  public static int denominator(String operand){
+    if(operand.indexOf("/") != -1){
+      int line = operand.indexOf("/");
+      String num = operand.substring(line+1);
+      return Integer.parseInt(num);
+    }
+    else{return 1;}
+  }//end denominator method
+
+  /*
+   *N:findGCF
+   *P:get the GCF of two numbers
+   *I:two numbers
+   *R:GCF of the numbers
+   */
+  public static int findGCF(int first, int second){
+    int min = Math.min(first,second);
+    int max = Math.max(first,second);
+    //System.out.println(min +" "+ max);
+    //return 0;
+    for(int i = min; i>0; i--){
+      if(first % i == 0 && second % i == 0){
+        return i;
+      }
+    }
+    return 1;
+  }//end findGCF method
 }//end class
