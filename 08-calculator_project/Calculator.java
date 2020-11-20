@@ -14,7 +14,9 @@ public class Calculator{
         System.out.println(produceAnswer(user));
       }// end if user not empty
     }//end while loop
+    in.close();
   }//end main method
+
   /*
    *N: produceAnswer
    *P: solve the equation the user inputs
@@ -113,9 +115,17 @@ public class Calculator{
       simplified = simplified.substring(0,wholeIndex);
     }
 
+    if(numer == 0){
+      simplified = simplified.substring(0,1);
+    }
     if(denom == 1 && simplified.contains("/") == true){
       int slashIndex = simplified.indexOf("/");
       simplified = simplified.substring(0,slashIndex);
+    }
+
+    if(result.substring(0,1).equals("-")){
+      simplified = simplify(result.substring(1));
+      simplified = "-" + simplified;
     }
     return simplified;
     //return numer;
@@ -141,8 +151,14 @@ public class Calculator{
     int whole1 = wholeNum(first);
     int whole2 = wholeNum(second);
 
-    int numer1 = numerator(first);
-    int numer2 = numerator(second);
+    String numer1 = numerator(first);
+    if (Integer.toString(whole1).substring(0,1).equals("-")){
+      numer1 = "-" + numerator(first);
+    }
+    String numer2 = numerator(second);
+    if (Integer.toString(whole2).substring(0,1).equals("-")){
+      numer2 = "-" + numerator(second);
+    }
 
     int denom1 = denominator(first);
     int denom2 = denominator(second);
@@ -150,11 +166,11 @@ public class Calculator{
     int[] splitOperands = new int[7];
     //refer below for where each value is
     splitOperands[0] = whole1;
-    splitOperands[1] = numer1;
+    splitOperands[1] = Integer.parseInt(numer1);
     splitOperands[2] = denom1;
     splitOperands[3] = operatorIndex;
     splitOperands[4] = whole2;
-    splitOperands[5] = numer2;
+    splitOperands[5] = Integer.parseInt(numer2);
     splitOperands[6] = denom2;
 
     return splitOperands;
@@ -168,7 +184,7 @@ public class Calculator{
    */
   public static int wholeNum(String operand){
     if(operand.indexOf("_") != -1){
-      String num = operand.substring(0,1);
+      String num = operand.substring(0,operand.indexOf("_"));
       return Integer.parseInt(num);
     }
     else if(operand.indexOf("/") != -1){
@@ -185,13 +201,13 @@ public class Calculator{
    *I: one operand
    *R: numerator or 0
    */
-  public static int numerator(String operand){
+  public static String numerator(String operand){
     if(operand.indexOf("/") != -1){
       int line = operand.indexOf("/");
-      String num = operand.substring(line-1, line);
-      return Integer.parseInt(num);
+      String num = operand.substring(operand.indexOf("_")+1, line);
+      return num;
     }
-    else{return 0;}
+    else{return Integer.toString(0);}
   }//end numerator method
 
   /*
@@ -217,7 +233,6 @@ public class Calculator{
    */
   public static int findGCF(int first, int second){
     int min = Math.min(first,second);
-    int max = Math.max(first,second);
     //System.out.println(min +" "+ max);
     //return 0;
     if(first != second){
