@@ -115,8 +115,8 @@ public class Calculator{
       simplified = simplified.substring(0,wholeIndex);
     }
 
-    if(numer == 0){
-      simplified = simplified.substring(0,1);
+    else if(numer == 0){
+      simplified = Integer.toString(0);
     }
     if(denom == 1 && simplified.contains("/") == true){
       int slashIndex = simplified.indexOf("/");
