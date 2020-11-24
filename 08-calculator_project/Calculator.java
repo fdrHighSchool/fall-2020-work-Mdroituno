@@ -25,6 +25,7 @@ public class Calculator{
    */
   //public static int produceAnswer(String user){
   public static String produceAnswer(String user){
+    //split parts of input
     int[] splitOperands = inputSplit(user);
     /*
     for (int i =0; i<7; i++){
@@ -37,6 +38,7 @@ public class Calculator{
     System.out.print(" numerator: " + splitOperands[5]);
     System.out.println(" denominator: " + splitOperands[6]);
     */
+    //find operator
     String operator = user.substring(splitOperands[3], splitOperands[3]+1);
     //System.out.println(calculation(splitOperands,operator));
     return simplify(calculation(splitOperands,operator));
@@ -50,11 +52,12 @@ public class Calculator{
    *R: final calculation
    */
   public static String calculation(int[] splitOperands, String operator){
-
+    //makes improper fractions
     int num1 = splitOperands[0] * splitOperands[2] + splitOperands[1];
     int num2 = splitOperands[4] * splitOperands[6] + splitOperands[5];
     //System.out.println(num1 + " " +  num2);
 
+    //all calculations
     if(operator.equals("+")){
       int numer = (num1 * splitOperands[6]) + (num2 * splitOperands[2]);
       int denom = splitOperands[2] * splitOperands[6];
@@ -90,39 +93,40 @@ public class Calculator{
    */
   //public static int simplify(String result){
   public static String simplify(String result){
+    //split numerator and denominator for easy use
     int division = result.indexOf("/");
     int numer = Integer.parseInt(result.substring(0,division));
     int denom = Integer.parseInt(result.substring(division+1));
     int whole = 0;
 
-    if(numer != denom){
-      int GCF = findGCF(numer,denom);
-      numer /= GCF;
-      denom /= GCF;
-    }
-    if(numer >= denom){
-     whole = numer / denom;
-    }
+    int GCF = findGCF(numer,denom);
+    numer /= GCF;
+    denom /= GCF;
+
+    if(numer > denom)
+      whole = numer / denom;
+    
     numer -= whole*denom;
 
+    //set final answer to mathematical syntax
     String simplified = whole + "_" + numer + "/" + denom;
     if(whole == 0){
       simplified = numer + "/" + denom;
-    }
-
-    if(numer == 0 && whole > 0){
-      int wholeIndex = simplified.indexOf("_");
-      simplified = simplified.substring(0,wholeIndex);
-    }
-
-    else if(numer == 0){
-      simplified = Integer.toString(0);
     }
     if(denom == 1 && simplified.contains("/") == true){
       int slashIndex = simplified.indexOf("/");
       simplified = simplified.substring(0,slashIndex);
     }
 
+    if(numer == 0 && whole > 0){
+      int wholeIndex = simplified.indexOf("_");
+      simplified = simplified.substring(0,wholeIndex);
+    }
+    else if(numer == 0){
+      simplified = Integer.toString(0);
+    }
+
+    //negative answers still get simplified
     if(result.substring(0,1).equals("-")){
       simplified = simplify(result.substring(1));
       simplified = "-" + simplified;
@@ -143,6 +147,7 @@ public class Calculator{
     int space = user.indexOf(" ");
     int operatorIndex = space + 1;
 
+    //split operands
     String first = user.substring(0,space);
     String second = user.substring(operatorIndex+2);
     //System.out.print(first);
@@ -233,13 +238,12 @@ public class Calculator{
    */
   public static int findGCF(int first, int second){
     int min = Math.min(first,second);
-    //System.out.println(min +" "+ max);
+    //System.out.println(min);
     //return 0;
-    if(first != second){
-      for(int i = min; i>0; i--){
-        if(first % i == 0 && second % i == 0){
-          return i;
-        }
+    //if(first != second){
+    for(int i = min; i>0; i--){
+      if(first % i == 0 && second % i == 0){
+        return i;
       }
     }
     return 1;

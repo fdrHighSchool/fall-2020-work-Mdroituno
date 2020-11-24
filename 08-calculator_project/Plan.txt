@@ -5,10 +5,20 @@ main method:
   pass input into method produceAnswer and print return
 
 produceAnswer method:
+  get all parts of input
   find the operator
-  separate the operands into different substrings
+  send parts and operator into calculation method then send that return to simplify method
+  return final answer
+
+calculation method:
   make mixed fractions into improper fractions
-  if operator is multiplication then multiply fractions
-  if operator is division then multiply using reciprocal of second operand
-  if operator is addition then use LCM to get common denominators and match the numerators to change in denominator then add numerators
-  if operator is subtraction then use LCM to get common denominators and match the numerators to change in denominator then subtract numerators
+  do all calculations as needed
+  return unsimplified answer
+
+simplify method:
+  find GCF of numerator and denominator then divide
+  make whole number from difference between numerator and denominator
+  make syntax of final answer
+  fix fraction to have correct mathematical syntax
+  return final simplified answer
+
