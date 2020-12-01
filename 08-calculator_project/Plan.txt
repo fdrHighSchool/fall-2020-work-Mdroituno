@@ -1,0 +1,24 @@
+main method:
+  create scanner object
+  loop until user tells program to stop
+  get user input
+  pass input into method produceAnswer and print return
+
+produceAnswer method:
+  get all parts of input
+  find the operator
+  send parts and operator into calculation method then send that return to simplify method
+  return final answer
+
+calculation method:
+  make mixed fractions into improper fractions
+  do all calculations as needed
+  return unsimplified answer
+
+simplify method:
+  find GCF of numerator and denominator then divide
+  make whole number from difference between numerator and denominator
+  make syntax of final answer
+  fix fraction to have correct mathematical syntax
+  return final simplified answer
+
