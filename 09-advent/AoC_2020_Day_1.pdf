@@ -1,0 +1,4 @@
+for x< data.length()
+    if(data[x] + data[x+1] == 2020)
+        print(data[x] * data[x+1])
+        break
