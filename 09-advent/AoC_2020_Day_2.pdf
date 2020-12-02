@@ -1,0 +1,16 @@
+valid = 0
+for values in password list
+    min = int before "-"
+    max = int between "-" and " "
+    letter = string between " " and ":"
+    password = string at value.indexOf(":")+2 to the end
+
+    index = password.indexOf(letter)
+    count = 0
+    while index != -1
+        count++
+        password = password.substring(index+1)
+        index = password.indexOf(letter)
+
+    if count>min and count<max
+        valid++
