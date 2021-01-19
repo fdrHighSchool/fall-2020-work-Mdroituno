@@ -1,14 +1,12 @@
 public class Account {
     // instance variables
     private String name;
-    private String id;
     private int followers;
     private int posts;
     
     //constructor
-    public Account(String n, String i){
+    public Account(String n){
         this.name = n;
-        this.id = i;
         this.followers = 0;
         this.posts = 0;
     }//end constructor method
@@ -16,10 +14,6 @@ public class Account {
     public String getName(){
         return this.name;
     }//end getName
-
-    public String getID(){
-        return this.id;
-    }//end getID
 
     public int getFollowers(){
         return this.followers;
@@ -29,24 +23,16 @@ public class Account {
         this.name = name;
     }//end changeName
 
-    public void addFollowers(int amount){
-        this.followers += amount;
+    public void addFollowers(int max){
+        this.followers += (int) (Math.random() * max + 1);
     }//end addFollowers
     
-    public void newPost(){
-        this.posts++;
+    public void newPosts(int i){
+        this.posts += i;
     }//end newPost
 
-    public void displayName(){
-        System.out.println("Name: " + this.name);
-    }//end displayName
-
-    public void displayFollowers(){
-        System.out.println("Followers: " + this.followers);
-    }//end displayFollowers
-
-    public void displayPosts(){
-        System.out.println("Posts: " + this.posts);
-    }//end displayPosts
+    public String toString(){
+        return "Name: " + this.name + ", Followers: " + this.followers + ", Posts: " + this.posts;
+    }
 
 }
